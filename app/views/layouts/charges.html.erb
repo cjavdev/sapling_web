@@ -6,6 +6,21 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
   </head>
   <body>
+   <% if flash[:errors] %>
+      <% flash[:errors].each do |error| %>
+        <%= error %>
+      <% end %>
+    <% end %>
+
+    <% if logged_in? %>
+      <%= button_to "Log out", session_path, method: :delete %>
+      <%= current_user.email %>
+    <% else %>
+      <%= link_to "Register", new_user_path %>
+      <%= link_to "Sign in", new_session_path %>
+    <% end %>
+
+
     <%= yield %>
   </body>
 </html>
