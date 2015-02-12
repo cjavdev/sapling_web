@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>SaplingWeb</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Sapling Advisory</title>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="container">
+    <% if flash[:errors] %>
+      <% flash[:errors].each do |error| %>
+        <%= error %>
+      <% end %>
+    <% end %>
 
-<%= yield %>
+    <% if logged_in? %>
+      <%= button_to "Log out", session_path, method: :delete %>
+      <%= current_user.email %>
+    <% else %>
+      <%= link_to "Register", new_user_path %>
+      <%= link_to "Sign in", new_session_path %>
+    <% end %>
 
-</body>
+    <%= yield %>
+    </div>
+  </body>
 </html>

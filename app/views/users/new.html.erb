@@ -3,7 +3,7 @@
 <form action="/users" method="post">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
   <label>Email<br>
-    <input name="user[email]" type="email"><br>
+    <input name="user[email]" type="email" value="<%= @user.email %>"><br>
   </label>
   <label>Password<br>
     <input name="user[password]" type="password"><br>

@@ -24,3 +24,5 @@ end
 gem 'figaro'
 gem 'annotate'
 gem 'bcrypt'
+gem 'bootstrap-sass'
+gem 'font-awesome-rails'
