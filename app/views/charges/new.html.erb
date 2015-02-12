@@ -1,12 +1,130 @@
-<%= form_tag charges_path do %>
-<article>
-  <label class="amount">
-    <span>Amount: $5.00</span>
-  </label>
-</article>
+<script>
+  var handler = StripeCheckout.configure({
+    key: "<%= Rails.configuration.stripe[:publishable_key] %>",
+    image: '/square-image.png',
+    token: function(token) {
+      // Use the token to create the charge with a server-side script.
+      // You can access the token ID with `token.id`
+    }
+  });
 
-<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-  data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-  data-description="A month's subscription"
-  data-amount="500"></script>
-<% end %>
+  $('#unel').on('click', function(e) {
+    // Open Checkout with further options
+    handler.open({
+      name: 'Sapling Advisory ILA Lead Engine',
+      description: 'Unmatched Non-exclusive Leads',
+      amount: 900
+    });
+    e.preventDefault();
+  });
+
+  // Close Checkout on page navigation
+  $(window).on('popstate', function() {
+    handler.close();
+  });
+</script>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+      <!-- PRICE ITEM -->
+      <div class="panel price panel-red">
+        <div class="panel-heading  text-center">
+          <h3>ILA Lead Engine: Unmatched Non-exclusive Leads</h3>
+        </div>
+        <div class="panel-body text-center">
+          <p class="lead" style="font-size:40px"><strong>$9 / lead</strong></p>
+        </div>
+        <ul class="list-group list-group-flush text-center">
+          <li class="list-group-item"><i class="icon-ok text-danger"></i> Prospect with money in motion</li>
+          <li class="list-group-item"><i class="icon-ok text-danger"></i> Sold up to 3x</li>
+          <li class="list-group-item"><i class="icon-ok text-danger"></i> Guaranteed contact data accuracy</li>
+          <li class="list-group-item"><i class="icon-ok text-danger"></i> Volume discounts:  5% off 10, 10% off 25, and 15% off 50</li>
+        </ul>
+        <div class="panel-footer">
+          <%= form_tag charges_path do %>
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-name="Sapling Advisory"
+                    data-label="Buy Now"
+                    data-email="<%= current_user.email %>"
+                    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                    data-description="Unmatched Non-exclusive Leads"
+                    data-amount="900"></script>
+          <% end %>
+        </div>
+      </div>
+      <!-- /PRICE ITEM -->
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+      <!-- PRICE ITEM -->
+      <div class="panel price panel-blue">
+        <div class="panel-heading arrow_box text-center">
+          <h3>ILA Lead Engine: Unmatched Exclusive Leads</h3>
+        </div>
+        <div class="panel-body text-center">
+          <p class="lead" style="font-size:40px"><strong>$18 / lead</strong></p>
+        </div>
+        <ul class="list-group list-group-flush text-center">
+          <li class="list-group-item"><i class="icon-ok text-info"></i> Prospect with money in motion</li>
+          <li class="list-group-item"><i class="icon-ok text-info"></i> Exclusively yours </li>
+          <li class="list-group-item"><i class="icon-ok text-info"></i> Guaranteed contact data accuracy</li>
+          <li class="list-group-item"><i class="icon-ok text-info"></i> Volume discounts:  5% off 10, 10% off 25, and 15% off 50</li>
+        </ul>
+        <div class="panel-footer">
+          <%= form_tag charges_path do %>
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-name="Sapling Advisory"
+                    data-label="Buy Now"
+                    data-email="<%= current_user.email %>"
+                    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                    data-description="Unmatched Exclusive Leads"
+                    data-amount="1800"></script>
+          <% end %>
+        </div>
+      </div>
+      <!-- /PRICE ITEM -->
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+      <!-- PRICE ITEM -->
+      <div class="panel price panel-green">
+        <div class="panel-heading arrow_box text-center">
+          <h3>ILA Lead Match Engine: Matched Non-exclusive Leads</h3>
+        </div>
+        <div class="panel-body text-center">
+          <p class="lead" style="font-size:40px"><strong>$24 / lead</strong></p>
+        </div>
+        <ul class="list-group list-group-flush text-center">
+          <li class="list-group-item"><i class="icon-ok text-success"></i> Prospect with money in motion, matched to you</li>
+          <li class="list-group-item"><i class="icon-ok text-success"></i> Sold up to 2 times</li>
+          <li class="list-group-item"><i class="icon-ok text-success"></i> Guaranteed contact data accuracy</li>
+          <li class="list-group-item"><i class="icon-ok text-success"></i> Volume discounts:  5% off 10, 10% off 25, and 15% off 50</li>
+        </ul>
+        <div class="panel-footer">
+          <a class="btn btn-lg btn-block btn-success" href="#" disabled>Coming soon...</a>
+        </div>
+      </div>
+      <!-- /PRICE ITEM -->
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+      <!-- PRICE ITEM -->
+      <div class="panel price panel-grey">
+        <div class="panel-heading arrow_box text-center">
+          <h3>ILA Lead Match Engine: Matched Exclusive Leads</h3>
+        </div>
+        <div class="panel-body text-center">
+          <p class="lead" style="font-size:40px"><strong>$36 / lead</strong></p>
+        </div>
+        <ul class="list-group list-group-flush text-center">
+          <li class="list-group-item"><i class="icon-ok text-success"></i> Prospect with money in motion, matched to you</li>
+          <li class="list-group-item"><i class="icon-ok text-success"></i> Exclusively yours</li>
+          <li class="list-group-item"><i class="icon-ok text-success"></i> Guaranteed contact data accuracy</li>
+          <li class="list-group-item"><i class="icon-ok text-success"></i> Volume discounts:  5% off 10, 10% off 25, and 15% off 50</li>
+        </ul>
+        <div class="panel-footer">
+          <a class="btn btn-lg btn-block btn-primary" href="#" disabled>Coming soon...</a>
+        </div>
+      </div>
+      <!-- /PRICE ITEM -->
+    </div>
+  </div>
+</div>
