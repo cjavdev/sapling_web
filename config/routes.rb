@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: "users#show"
+  root to: "leads#index"
   resource :session
   resources :users
 end
